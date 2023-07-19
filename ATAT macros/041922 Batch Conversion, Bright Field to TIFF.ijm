@@ -1,40 +1,30 @@
 inputdir = getDirectory("Choose Source Directory ");
+outputdir = getDirectory("Choose output directory");
 
 
 files = getFileList(inputdir);
-outputdir = replace(inputdir, "Big TIF Images", "Little TIF Images");
+//outputdir = replace(inputdir, "Big TIF Images", "Little TIF Images");
 //print(outputdir);
-File.makeDirectory(outputdir);
+//File.makeDirectory(outputdir);
 
 //Table.setColumn("File Names", files);
 //Array.print(files);
 
 imagejdir = getDirectory("imagej");
 
-//setBatchMode(true);
-
-//runcount = 0;
-
-//if (runcount == 0) {
-//	filecount = nResults;
-//}
-
-//Table.rename("Results", "Image Files");
-
-
-
 for (z = 0; z < files.length; z++) {
 	filename = files[z];
 	fullcurrentname = inputdir + filename;
+	print(fullcurrentname);
 	//run("Bio-Formats Importer", "open=[fullcurrentname] color_mode=Colorized rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT series_1");
 	run("Bio-Formats Importer", "open=[fullcurrentname] color_mode=Colorized rois_import=[ROI manager] split_channels view=Hyperstack stack_order=XYCZT series_2");
-	c2name = filename + " - Series 2 - C=2";
+	c2name = filename + " - C=2";
 	selectWindow(c2name);
 	run("RGB Color");
-	c1name = filename + " - Series 2 - C=1";
+	c1name = filename + " - C=1";
 	selectWindow(c1name);
 	run("RGB Color");
-	c0name = filename + " - Series 2 - C=0";
+	c0name = filename + " - C=0";
 	selectWindow(c0name);
 	run("RGB Color");
 	imageCalculator("Add", c0name, c1name);
@@ -47,13 +37,17 @@ for (z = 0; z < files.length; z++) {
 	width = getWidth();
 	micronswidth = 2.0124 * width;
 	run("Set Scale...", "distance=width known=micronswidth unit=microns");
-	newname1 = replace(fullcurrentname, ".tif", "") + "_5x";
-	newname2 = replace(newname1, ".svs", "");
-	newname3 = replace(newname2, ".vsi", "");
-	newname4 = replace(newname3, ".btf", "");
+	newname1 = replace(filename, "\\.tif", ""); //+ "_5x";
+	newname2 = replace(newname1, "\\.svs", "");
+	newname3 = replace(newname2, "\\.vsi", "");
+	newname4 = replace(newname3, "\\.btf", "");
+	newname5 = replace(newname4, "\\.png", "");
+	newname6 = replace(newname5, "\\.jpg", "");
+	newname7 = replace(newname6, "\\.jpeg", "");
 	//print(newname4);
-	outputname = replace(newname4, "Big TIF", "Little TIF");
-	saveAs("Tiff", outputname);
+	outputname = outputdir + newname7 + ".tif";
+	//print(outputname);
+	saveAs("tiff", outputname);
 	close();
 	//runcount++;
 }
