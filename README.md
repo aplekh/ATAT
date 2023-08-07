@@ -8,4 +8,4 @@ ATAT offers distinct advantages over current WAT image analysis tools in that it
 
 ## Downloading ATAT
 
-Please download ATAT from [Releases](https://github.com/aplekh/ATAT/releases) on this GitHub page. The latest release can be found [Here](https://github.com/aplekh/ATAT/releases/tag/v1.1.20).
+Please download ATAT from [Releases](https://github.com/aplekh/ATAT/releases) on this GitHub page. The latest release can be found [Here](https://github.com/aplekh/ATAT/releases/tag/v1.1.22).
