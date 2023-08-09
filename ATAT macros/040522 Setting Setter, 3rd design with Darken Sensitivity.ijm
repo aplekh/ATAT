@@ -32,7 +32,7 @@ if (SettingsStatus == 1) {
 	PrevDarkSensitivity = parseFloat(Table.get("Edge Darkening Sensitivity"));
 	PrevDarkStrength = parseFloat(Table.get("Edge Darkening Strength"));
 
-	PrevOutputDir = Table.getString("OutputDir", 0);
+	//PrevOutputDir = Table.getString("OutputDir", 0);
 	
 	PrevFibroticLines = Table.getString("Fibrotic Lines", 0);
 	
@@ -57,7 +57,7 @@ if (SettingsStatus == 1) {
 	PrevDarkSetting = "No";
 	PrevBrightSetting = "No";
 	
-	PrevOutputDir = getDirectory("imagej") + "AT-AT";
+	//PrevOutputDir = getDirectory("imagej") + "AT-AT";
 	
 	PrevFibroticLines = "Hide";
 }
@@ -79,7 +79,7 @@ Dialog.addNumber("Minimum Circularity", PrevMinCircularity);
 Dialog.addNumber("Minimum Particle Size", PrevMinPart);
 Dialog.addNumber("Maximum Particle Size", PrevMaxPart);
 
-Dialog.addDirectory("Save Results To...", PrevOutputDir);
+//Dialog.addDirectory("Save Results To...", PrevOutputDir);
 
 Dialog.show();
 DarkenSetting = Dialog.getChoice();
@@ -95,7 +95,7 @@ MinCirc = Dialog.getNumber();
 MinPart = Dialog.getNumber();
 MaxPart = Dialog.getNumber();
 
-outputdir = Dialog.getString();
+//outputdir = Dialog.getString();
 
 if (DarkenSetting == "Yes") {
 	Dialog.create("Edge Enhancement Settings");
@@ -171,7 +171,7 @@ if (histobuddysetting == "Yes") {
 	}
 }
 
-Table.set("OutputDir", 0, outputdir);
+//Table.set("OutputDir", 0, outputdir);
 
 //IJ.renameResults("Settings", "AT-AT Capture Settings.csv");
 

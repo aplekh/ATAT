@@ -26,11 +26,11 @@ imagejdir = getDirectory("imagej");
 newfullnamerc = imagejdir + "RunCount";
 tablestate = File.exists(newfullnamerc);
 
-if (tablestate == 1) {
+if (tablestate == 1) { // This will never happen if tablestate is 10. Preserving conditional statement just in case. Originally, this statement was tablestate == 1, not tablestate == 10, but this seems to be legacy code that was causing bugs involving a "RunCount" file. tablestate can only be 0 (false) and 1 (true). 
 	Table.open(newfullnamerc);
 	inputdir = Table.getString("InputDir", 0);
 	currentruncount = parseFloat(Table.get("RunCount", 0)) + 1;
-} else {
+} else { // This case will always happen since tablestate can never be 10.
 	Table.create("RunCount");
 	Table.set("RunCount", 0, 0);
 	//setResult("RunCount", 0, 0);
@@ -40,12 +40,17 @@ if (tablestate == 1) {
 	currentruncount = 0;
 }
 
-if (currentruncount == 0)
+/*if (File.exists(inputdir + "\\analyticROIs\\"))
+{
+	File.delete(inputdir + "\\analyticROIs\\");
+}*/
+
+/*if (currentruncount == 0)
 {
 	Dialog.create("Information - ROI assisted ATAT");
 	Dialog.addMessage("Select a source directory for the images you wish to analyse.\n \nThen select any analytic ROIs (one or multiple per image), add \nthem to the ROI manager, and then *run this setup again*.\n \nYour ROIs will be saved and the next image will be opened for \nROI-setting.\n \nThen run AT-AT's analysis normally. It will automatically check \nto see whether the desired analytic ROIs are present.");
 	Dialog.show();
-}
+}*/
 
 if (tablestate == 0) {
 	files = getFileList(inputdir);
@@ -59,7 +64,8 @@ for (i = 0; i < filecount; i++) {
 	filecheck = Table.getString("File Names", i);
 	if (filecheck == "analyticROIs/") {
 		Table.deleteRows(i, i);
-		IJ.renameResults("Results","RunCount");
+		//IJ.renameResults("Results","RunCount");
+		exit("You have subdirectories in your image input directory!");
 		filecount--;
 	}
 }
@@ -130,7 +136,7 @@ saveAs("results", newfullnamerc);
 if (currentruncount < filecount) {
 	selectWindow("RunCount");
 	currentimage = Table.getString("File Names", currentruncount);
-	open(currentimage);
+	open(inputdir + "/" + currentimage);
 	prevruncount = currentruncount - 1;
 	previmage = Table.getString("File Names", prevruncount);
 	roidir1 = roidir0 + previmage;
@@ -142,7 +148,7 @@ if (currentruncount < filecount) {
 	//currentimage = Table.getString("File Names", currentruncount);
 	prevruncount = currentruncount - 1;
 	previmage = Table.getString("File Names", prevruncount);
-	open(previmage);
+	open(inputdir + "/" + previmage);
 	roidir1 = roidir0 + previmage;
 	roidir2 = replace(roidir1, ".tif", "") + "analyticROIs.zip";
 	File.delete(newfullnamerc);

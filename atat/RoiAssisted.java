@@ -29,7 +29,7 @@ import ij.plugin.Macro_Runner;
 import ij.plugin.PlugIn;
 import ij.WindowManager;
 
-//import java.io.File;
+import java.io.File;
 //import java.util.ArrayList;
 //import java.util.List;
 
@@ -60,6 +60,7 @@ public class RoiAssisted implements PlugIn {
 								e.printStackTrace();
 							}
 						}
+						new File(IJ.getDirectory("imagej") + "/" + "RunCount").delete(); // Need to delete RunCount as it is not deleted in macro unless the macro reaches the very end successfully
 						WindowManager.closeAllWindows();
 					}
 			}).start();
@@ -74,6 +75,7 @@ public class RoiAssisted implements PlugIn {
 			public void actionPerformed(ActionEvent e) {
 				Macro_Runner.runMacroFromJar("ATAT macros/030921 Batch ROI Setter which supports multiple rois on final image.ijm", "");
 				WindowManager.closeAllWindows();
+				new File(IJ.getDirectory("imagej") + "/" + "RunCount").delete(); // Need to delete RunCount as it is not deleted in macro unless the macro reaches the very end
 				//Macro_Runner.runMacroFromJar("(Latest finalized) 090822 Adipocyte Capture with Batch and Analytic ROI Fixes.ijm", "");
 				Main analysisRunner = new Main();
 				analysisRunner.run("");
@@ -96,6 +98,7 @@ public class RoiAssisted implements PlugIn {
 			public void actionPerformed(ActionEvent e) {
 				Macro_Runner.runMacroFromJar("ATAT macros/030921 Batch ROI Setter which supports multiple rois on final image.ijm", "");
 				WindowManager.closeAllWindows();
+				new File(IJ.getDirectory("imagej") + "/" + "RunCount").delete(); // Need to delete RunCount as it is not deleted in macro unless the macro reaches the very end
 			}
 		});
 		

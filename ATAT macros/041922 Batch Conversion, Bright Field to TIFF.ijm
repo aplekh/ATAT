@@ -17,7 +17,8 @@ for (z = 0; z < files.length; z++) {
 	fullcurrentname = inputdir + filename;
 	print(fullcurrentname);
 	//run("Bio-Formats Importer", "open=[fullcurrentname] color_mode=Colorized rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT series_1");
-	run("Bio-Formats Importer", "open=[fullcurrentname] color_mode=Colorized rois_import=[ROI manager] split_channels view=Hyperstack stack_order=XYCZT series_2");
+	//run("Bio-Formats Importer", "open=[fullcurrentname] color_mode=Colorized rois_import=[ROI manager] split_channels view=Hyperstack stack_order=XYCZT series_2");
+	run("Bio-Formats Importer", "open=[fullcurrentname] color_mode=Colorized rois_import=[ROI manager] split_channels view=Hyperstack stack_order=XYCZT");
 	c2name = filename + " - C=2";
 	selectWindow(c2name);
 	run("RGB Color");
@@ -34,9 +35,9 @@ for (z = 0; z < files.length; z++) {
 	selectWindow(c2name);
 	close();
 	selectWindow(c0name);
-	width = getWidth();
+	/*width = getWidth();
 	micronswidth = 2.0124 * width;
-	run("Set Scale...", "distance=width known=micronswidth unit=microns");
+	run("Set Scale...", "distance=width known=micronswidth unit=microns");*/
 	newname1 = replace(filename, "\\.tif", ""); //+ "_5x";
 	newname2 = replace(newname1, "\\.svs", "");
 	newname3 = replace(newname2, "\\.vsi", "");

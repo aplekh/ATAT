@@ -33,7 +33,6 @@ for (i = 0; i < filecount; i++) {
 		Table.deleteRows(i, i);
 		break;
 	}
-
 }
 
 filecount = nResults;
@@ -61,7 +60,7 @@ for (z = 0; z < filecount; z++) {
 	if (Unit == "microns") {
 		run("Set Scale...", "distance=DistPix known=KnownDist unit=microns");
 	} else {
-		run("Set Scale...", "distance=DistPix known=KnownDist unit=microns");
+		run("Set Scale...", "distance=DistPix known=KnownDist unit=" + Unit);
 		print("In line 65... who made me write this abomination?");
 	}
 	save(fullcurrentname);

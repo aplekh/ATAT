@@ -1,4 +1,5 @@
 tieEnabled = false; // allows for easy code direction changing with just 1 var based on whether or not TIE is enabled
+watershedEnabled = false; // for non standard ATAT analyses (not integrated into normal ATAT, yet)
 
 if (tieEnabled)
 {
@@ -621,6 +622,11 @@ run("Clear Results");
 roiManager("deselect");
 roiManager("delete");
 
+if (watershedEnabled) // for non-standard analyses. Can only be run by changing the code variable at the top of this file. Maybe will be eventually integrated into normal ATAT, maybe wont be.
+{
+	run("Watershed");
+}
+
 run("Set Measurements...", "area centroid perimeter bounding feret's redirect=None decimal=3");
 selectWindow(rofimage3name);
 if (tieEnabled)
@@ -645,9 +651,9 @@ if (roicount == 0)
 }
 roiarray = Array.getSequence(roicount);
 roiManager("select", roiarray);
-roiManager("combine"); // This right here is what makes everything into 1 ROI as opposed to multiple ROIs
-roiManager("add");
-roiManager("select", roicount);
+//roiManager("combine"); // This right here is what makes everything into 1 ROI as opposed to multiple ROIs
+//roiManager("add");
+//roiManager("select", roicount);
 
 /* 
  * Translate command is only avialable on ImageJ version 1.53s or greater. We therefore have to check the version
@@ -683,7 +689,18 @@ if (!(ijVersion > 1.53 || (ijVersion == 1.53 && ijSubVersion >= 115))) // If ima
 	print(xmove + " " + ymove + " " + BX + " " + BY);
 	//waitForUser("rois should have been moved"); */
 }
+
 roiManager("translate", xROI, yROI);
+splitAdipoROIsName = AdipoROIsdir + replace(imagename, ".tif", "") + "AdipoROIs_split.zip";
+roiManager("save selected", splitAdipoROIsName);
+roiManager("translate", -xROI, -yROI); // Need to translate back as these cells are needed untranslated later on when mask is made
+
+roiManager("select", roiarray);
+roiManager("combine"); // This right here is what makes everything into 1 ROI as opposed to multiple ROIs
+roiManager("add");
+roiManager("select", roicount);
+roiManager("translate", xROI, yROI); // Translate just the combined cells
+
 Adiporoisname = AdipoROIsdir + replace(imagename, ".tif", "") + "AdipoROIs.zip";
 roiManager("save selected", Adiporoisname);
 roiManager("delete");
@@ -1186,4 +1203,9 @@ roiManager("delete");
 
 selectWindow("Results");
 run("Close");
+
+// Version 1.1.9 - adding deletion of combined ROIs to make new ROIs non combined when opened by user (devs - see task 11 in ATAT Todo)
+File.delete(Adiporoisname);
+File.rename(splitAdipoROIsName, Adiporoisname);
+
 return "success";
