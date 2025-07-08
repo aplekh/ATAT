@@ -12,6 +12,13 @@ Please download ATAT from [Releases](https://github.com/aplekh/ATAT/releases) on
 
 If you already have an older version of ATAT downloaded, please remove it from your ImageJ directory prior to installing a new one.
 
+## Citing
+
+If you find ATAT useful for your research, please cite the following paper:
+```
+Robino JJ, Plekhanov AP, Zhu Q, et al. Adipose Tissue Analysis Toolkit (ATAT) for automated analysis of adipocyte size and extracellular matrix in white adipose tissue. Obesity (Silver Spring). 2024; 32(4): 723-732. doi:10.1002/oby.23992
+```
+
 ## Contact us
 
 If you would like to contact us, please email [aplekhan@caltech.edu](mailto:aplekhan@caltech.edu), [plekhano@ohsu.edu](mailto:plekhano@ohsu.edu), and [varlamov@ohsu.edu](mailto:varlamov@ohsu.edu).
