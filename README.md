@@ -1,4 +1,4 @@
-# ATAT
+# Adipose Tissue Analysis Toolkit (ATAT)
 
 The Adipose Tissue Analysis Toolkit (ATAT) is a plugin for the open-source image analysis software ImageJ. ATAT performs analysis of adipocyte size and WAT fibrosis.
 
